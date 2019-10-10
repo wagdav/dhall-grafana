@@ -1,0 +1,38 @@
+version: "3.4"
+
+services:
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - type: bind
+        source: ./grafana/grafana.ini
+        target: /etc/grafana/grafana.ini
+
+      - type: bind
+        source: ./grafana/provisioning
+        target: /etc/grafana/provisioning
+
+      - type: bind
+        source: ../dashboards
+        target: /var/lib/grafana/dashboards
+
+  dhall:
+    image: dhallhaskell/dhall-json
+    command: /source/gen.sh
+    volumes:
+      - type: bind
+        source: /etc/ssl/certs
+        target: /etc/ssl/certs
+        read_only: true
+
+      - type: bind
+        source: ../
+        target: /source
+
+      - type: bind
+        source: ../dashboards
+        target: /dashboards
+
+
