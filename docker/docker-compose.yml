@@ -14,8 +14,8 @@ services:
         source: ./grafana/provisioning
         target: /etc/grafana/provisioning
 
-      - type: bind
-        source: ../dashboards
+      - type: volume
+        source: json-data
         target: /var/lib/grafana/dashboards
 
   dhall:
@@ -33,8 +33,10 @@ services:
         source: ../
         target: /source
 
-      - type: bind
-        source: ../dashboards
+      - type: volume
+        source: json-data
         target: /dashboards
 
+volumes:
+  json-data:
 
