@@ -20,7 +20,9 @@ services:
 
   dhall:
     image: dhallhaskell/dhall-json
-    command: /source/gen.sh
+    command: |
+      dhall-to-json --pretty
+      --file /source/prometheus.dhall --output dashboards/prometheus.json
     volumes:
       - type: bind
         source: /etc/ssl/certs
