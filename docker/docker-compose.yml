@@ -19,10 +19,10 @@ services:
         target: /var/lib/grafana/dashboards
 
   dhall:
-    image: dhallhaskell/dhall-json
+    image: dhallhaskell/dhall-json:1.5.0
     command: |
       dhall-to-json --pretty
-      --file /source/prometheus.dhall --output dashboards/prometheus.json
+      --file /source/examples/prometheus.dhall --output dashboards/prometheus.json
     volumes:
       - type: bind
         source: /etc/ssl/certs
@@ -30,7 +30,7 @@ services:
         read_only: true
 
       - type: bind
-        source: ../
+        source: ..
         target: /source
 
       - type: volume
